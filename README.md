@@ -1,9 +1,14 @@
-# Salary Tax Calculator (Pakistan FY 2025–26)
+# Salary Tax Calculator (Pakistan FY 2025–26 / FY 2026–27)
 
 A small React + Vite app that calculates monthly/annual income tax for
-salaried individuals in Pakistan based on FBR's FY 2025–26 slabs. For the
-entered salary it shows the **fixed tax** for the applicable slab and the
-**tax on the additional amount** above that slab's threshold.
+salaried individuals in Pakistan, with a toggle between FBR's **FY 2025–26**
+(TY2026) slabs and the **FY 2026–27** (TY2027) slabs proposed in Budget
+2026–27 (effective 1 July 2026, pending formal passage of the Finance Bill
+2026). For the entered salary it shows the **fixed tax** for the applicable
+slab and the **tax on the additional amount** above that slab's threshold.
+
+The layout is a two-column "receipt" that fits within one screen on desktop
+(no vertical scroll) and stacks into a single scrollable column on mobile.
 
 ## 1. Run locally
 
@@ -55,12 +60,14 @@ vercel --prod # deploy to production
 
 ## Updating the tax slabs
 
-The slabs live at the top of `src/App.jsx` in the `SLABS` array. Each entry
-has:
+The slabs live at the top of `src/App.jsx` in the `TAX_DATA` object, with one
+entry per tax year (`'2025-26'` and `'2026-27'`). Each slab in a year's
+`slabs` array has:
 
 - `upTo` — upper bound of annual taxable income for this slab (PKR)
 - `rate` — tax rate applied to the amount **above** the previous slab's `upTo`
 - `fixed` — fixed tax amount already accumulated from lower slabs
 - `label` — text shown in the breakdown
 
-Update these values whenever FBR publishes new slabs for a tax year.
+To add a future tax year, copy an existing entry, update the slabs/footnote,
+and it will automatically appear in the year toggle.
